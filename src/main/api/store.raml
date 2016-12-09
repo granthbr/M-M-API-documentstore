@@ -1,0 +1,299 @@
+#%RAML 1.0
+title: Document Store System API
+baseUri: http://0.0.0.0/api
+
+/store:
+  /{accountId}:
+    uriParameters:
+      accountId:
+        description: sfdc account id
+        type: string
+        example: "44455435234542324352434235423"
+    get:
+      headers:
+        Content-Type:
+          description: type of data delivered
+          example:
+            application/json
+        X-db-collection:
+          description: mongodb db name and collection
+          example:
+            metadata/customers
+      description: get the account from metadata
+      responses:
+        200:
+          body:
+            application/json:
+              example: "get stored data"
+  /createItem:
+    post:
+      headers:
+        Content-Type:
+          description: type of data delivered
+          example:
+            application/json
+        X-db-collection:
+          description: mongodb db name and collection
+          example:
+            metadata/customers
+      description: |
+       Create an existing resource
+      body:
+       application/json: !include examples/quoteItem.json
+      responses:
+       201:
+         description: |
+           Succesfully created a new resource
+         headers:
+           Location:
+             description: |
+               Location of the newly created resource
+             type: string
+             required: false
+  /updateItem:
+    /{accountId}:
+      uriParameters:
+        accountId:
+          description: sfdc account id
+          type: string
+          example:
+            "44455435234542324352434235423"
+      put:
+        headers:
+          Content-Type:
+            description: type of data delivered
+            example:
+              application/json
+          X-db-collection:
+            description: mongodb db name and collection
+            example:
+              metadata/customers
+        description: |
+           Update an existing resource
+        body:
+           application/json: !include examples/quoteItem.json
+        responses:
+          201:
+            description: |
+               Succesfully created a new resource
+            headers:
+              Location:
+                description: |
+                   Location of the newly created resource
+                type: string
+                required: false
+  /remove:
+    /{item}:
+      get:
+        headers:
+          Content-Type:
+            description: type of data delivered
+            example:
+              application/json
+          X-db-collection:
+            description: mongodb db name and collection
+            example:
+              metadata/customers
+        description: |
+          Remove an existing resource
+        body:
+          application/json: !include examples/quoteItem.json
+        responses:
+          201:
+            description: |
+              Succesfully created a new resource
+            headers:
+              Location:
+                description: |
+                  Location of the newly created resource
+                type: string
+                required: false
+    /collection/{collection}:
+      get:
+        headers:
+          Content-Type:
+            description: type of data delivered
+            example:
+              application/json
+          X-db-collection:
+            description: mongodb db name and collection
+            example:
+              metadata/customers
+        description: |
+          Remove an existing resource
+        body:
+          application/json: !include examples/quoteItem.json
+        responses:
+          201:
+            description: |
+              Succesfully created a new resource
+            headers:
+              Location:
+                description: |
+                  Location of the newly created resource
+                type: string
+                required: false
+    /table/{table}:
+      get:
+        headers:
+          Content-Type:
+            description: type of data delivered
+            example:
+              application/json
+          X-db-collection:
+            description: mongodb db name and collection
+            example:
+              metadata/customers
+        description: |
+          Remove an existing resource
+        body:
+          application/json: !include examples/quoteItem.json
+        responses:
+          201:
+            description: |
+              Succesfully created a new resource
+            headers:
+              Location:
+                description: |
+                  Location of the newly created resource
+                type: string
+                required: false
+/create:
+  /{item}:
+    post:
+      headers:
+        Content-Type:
+          description: type of data delivered
+          example:
+            application/json
+        X-db-collection:
+          description: mongodb db name and collection
+          example:
+            metadata/customers
+      description: |
+       Create an existing resource
+      body:
+       application/json: !include examples/quoteItem.json
+      responses:
+       201:
+         description: |
+           Succesfully created a new resource
+         headers:
+           Location:
+             description: |
+               Location of the newly created resource
+             type: string
+             required: false
+  /collection:
+    /{collection}:
+      uriParameters:
+        collection:
+          description: name of collection
+          type: string
+          example:
+            "testCollection"
+      get:
+          headers:
+            Content-Type:
+              description: type of data delivered
+              example:
+                application/json
+            X-db-collection:
+              description: mongodb db name and collection
+              example:
+                metadata/customers
+          description: |
+           Create an existing resource
+          responses:
+           200:
+             description: |
+               Succesfully created a new resource
+             headers:
+               Location:
+                 description: |
+                   Location of the newly created resource
+                 type: string
+                 required: false
+  /table:
+    /{table}:             
+      post:
+            headers:
+              Content-Type:
+                description: type of data delivered
+                example:
+                  application/json
+              X-db-collection:
+                description: mongodb db name and collection
+                example:
+                  metadata/customers
+            description: |
+             Create an existing resource
+            body:
+             application/json: !include examples/quoteItem.json
+            responses:
+             201:
+               description: |
+                 Succesfully created a new resource
+               headers:
+                 Location:
+                   description: |
+                     Location of the newly created resource
+                   type: string
+                   required: false
+  /update:
+    /{accountId}:
+      uriParameters:
+        accountId:
+          description: sfdc account id
+          type: string
+          example:
+            "44455435234542324352434235423"
+      put:
+        headers:
+          Content-Type:
+            description: type of data delivered
+            example:
+              application/json
+          X-db-collection:
+            description: mongodb db name and collection
+            example:
+              metadata/customers
+        description: |
+           Update an existing resource
+        body:
+           application/json: !include examples/quoteItem.json
+        responses:
+          201:
+            description: |
+               Succesfully created a new resource
+            headers:
+              Location:
+                description: |
+                   Location of the newly created resource
+                type: string
+                required: false
+  /remove:
+    post:
+      headers:
+        Content-Type:
+          description: type of data delivered
+          example:
+            application/json
+        X-db-collection:
+          description: mongodb db name and collection
+          example:
+            metadata/customers
+      description: |
+        Remove an existing resource
+      body:
+        application/json: !include examples/quoteItem.json
+      responses:
+        201:
+          description: |
+            Succesfully created a new resource
+          headers:
+            Location:
+              description: |
+                Location of the newly created resource
+              type: string
+              required: false

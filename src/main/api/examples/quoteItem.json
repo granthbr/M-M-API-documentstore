@@ -1,0 +1,62 @@
+{
+  "_id": "00129000009CK4sAAG",
+  "start_date": "2016-10-18",
+  "end_date": [
+    "2017-06-07"
+  ],
+  "quote": {
+    "account_Id": "00129000009CK4sAAG",
+    "anypoint_orgId": "63c0e81e-20b6-4f11-a9fd-c899734567fb",
+    "status": "New",
+    "opportunity_name": "Customer Prov Test 2",
+    "opportunity_type": "New Business",
+    "quote_id": "a4a290000009DUWAA2",
+    "start_date": "2016-10-18",
+    "end_date": "2017-06-07",
+    "customer_Address_Country": "United Kingdom",
+    "customer_Name": "Joses Cigar Bar",
+    "license_To_Contact_Id": "00329000006SkL9AAK",
+    "license_To_Name": "Fidel Castro",
+    "license_To_Phone": null,
+    "provisioned_time_date": "2016-11-07T06:45:57.598-08:00",
+    "provisioned_by": null,
+    "special_Terms": "Special terms are set... so this record is now flagged",
+    "email": {
+      "email": "jose.lopez@mulesoft.com"
+    },
+    "quotelines": [
+      {
+        "SBQQ__Quantity__c": "1.0",
+        "SBQQ__EffectiveStartDate__c": "2016-10-18",
+        "SBQQ__EffectiveEndDate__c": "2017-06-07",
+        "SBQQ__Product__c": "01t34000003wGKEAA2",
+        "SBQQ__Product__r": {
+          "ProductCode": "ANYPOINTSUB",
+          "Id": null,
+          "type": "Product2",
+          "Name": "Anypoint Platform Base Subscription"
+        },
+        "Id": "a4W290000004lKgEAI",
+        "type": "SBQQ__QuoteLine__c"
+      }
+    ],
+    "account": {
+      "Anypoint_Org": null,
+      "Id": "00129000009CK4sAAG",
+      "type": null,
+      "Name": "Jose's Cigar Bar"
+    },
+    "create_date": "2016-11-07T06:45:57.598-08:00"
+  },
+  "user": {
+    "firstName": "Fidel",
+    "lastName": "Castro",
+    "email": "jose.lopez@mulesoft.com",
+    "phone": null,
+    "name": "Fidel Castro"
+  },
+  "changeLog": {
+    "modify_date": "2016-11-07T06:45:57.598-08:00",
+    "type": "New"
+  }
+}
