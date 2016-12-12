@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:tracking="http://www.mulesoft.org/schema/mule/ee/tracking" xmlns:mongo="http://www.mulesoft.org/schema/mule/mongo"
+	xmlns:metadata="http://www.mulesoft.org/schema/mule/metadata"
+	xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns:dw="http://www.mulesoft.org/schema/mule/ee/dw"
+	xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:spring="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.mulesoft.org/schema/mule/mongo http://www.mulesoft.org/schema/mule/mongo/current/mule-mongo.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/ee/dw http://www.mulesoft.org/schema/mule/ee/dw/current/dw.xsd
+http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-current.xsd
+http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/ee/tracking http://www.mulesoft.org/schema/mule/ee/tracking/current/mule-tracking-ee.xsd">
+
+	<flow name="html-form-flow">
+        <http:listener config-ref="store-httpListenerConfig" path="/" doc:name="HTTP"/>
+		<parse-template location="form.html" doc:name="Parse Template" />
+		<set-property value="text/html" propertyName="Content-Type"
+			doc:name="Property" />
+	</flow>
+    <flow name="dbconnectFlow">
+        <mongo:add-user config-ref="Mongo_DB__Configuration" newPassword="MSPassW0rd123" newUsername="#[payload.uname]" doc:name="Mongo DB"/>
+    </flow>
+	<flow name="delete-mongo-record-flow">
+		<logger message="Deleting entry from Mongo with ID #[payload.deleteObjectId]"
+			level="INFO" doc:name="Logger" />
+		<dw:transform-message doc:name="Create query">
+			<dw:set-payload><![CDATA[%dw 1.0
+%output application/java
+---
+{
+	"_id":payload.deleteObjectId
+}]]></dw:set-payload>
+		</dw:transform-message>
+		<mongo:remove-documents config-ref="Mongo_DB__Configuration"
+			collection="${mongo.collection}" doc:name="Delete record" />
+		<set-payload value="&quot;Entry was deleted from MongoDB!&quot;"
+			doc:name="Set Payload" />
+	</flow>
+    <flow name="update-mongo-record-flow">
+        <logger message="Updating Mongo entry with ID #[payload.updateObjectId]. New 'message' value will be '#[payload.updateValue]'                    " level="INFO" doc:name="Logger"/>
+        <dw:transform-message doc:name="Create query">
+            <dw:set-variable variableName="query"><![CDATA[%dw 1.0
+%output application/java
+---
+{
+	"_id": payload.updateObjectId
+}
+]]></dw:set-variable>
+        </dw:transform-message>
+        <dw:transform-message doc:name="Create element">
+            <dw:set-variable variableName="updateValue"><![CDATA[%dw 1.0
+%output application/java
+---
+{
+	"content": payload.updateValue
+}]]></dw:set-variable>
+        </dw:transform-message>
+        <mongo:update-documents config-ref="Mongo_DB__Configuration" collection="${mongo.collection}" element-ref="#[flowVars.updateValue]" query-ref="#[flowVars.query]" doc:name="Update record"/>
+        <set-payload value="#[flowVars.query._id.toString()]" doc:name="Set Payload"/>
+    </flow>
+	<flow name="read-mongo-record-flow">
+		<logger
+			message="Finding a single record that has 'message' equal to '#[payload.message]'"
+			level="INFO" doc:name="Logger" />
+		<dw:transform-message doc:name="Create query">
+			<dw:set-payload><![CDATA[%dw 1.0
+%output application/java
+---
+{
+	content : payload.message
+}]]></dw:set-payload>
+		</dw:transform-message>
+		<mongo:find-one-document config-ref="Mongo_DB__Configuration"
+			collection="${mongo.collection}" doc:name="Read record" />
+		<set-payload value="#[payload['_id'].toString()]"
+			doc:name="Set Payload" />
+	</flow>
+	<flow name="create-mongo-record-flow">
+		<logger
+			message="Creating record in Mongo. Message will be '#[payload.message]'"
+			level="INFO" doc:name="Logger" />
+		<set-variable variableName="content" value="#[payload.message]"
+			doc:name="Content" />
+		<dw:transform-message doc:name="Create query">
+			<dw:set-payload><![CDATA[%dw 1.0
+%output application/java
+---
+{
+	content : flowVars.content
+}]]></dw:set-payload>
+		</dw:transform-message>
+		<mongo:insert-document config-ref="Mongo_DB__Configuration"
+			collection="${mongo.collection}" doc:name="Save record to Mongo" />
+		<set-payload value="#[flowVars.content]" doc:name="Set Payload" />
+
+	</flow>
+</mule>
