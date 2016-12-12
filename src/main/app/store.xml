@@ -21,22 +21,22 @@ http://www.mulesoft.org/schema/mule/ee/tracking http://www.mulesoft.org/schema/m
     <flow name="post:/store/removeItem:store-config">
         <flow-ref name="delete-mongo-record-flow" doc:name="delete-mongo-record-flow"/>
     </flow>
-    <flow name="get:/store/{id}:store-config">
+    <flow name="get:/store:store-config">
         <flow-ref name="read-mongo-record-flow" doc:name="read-mongo-record-flow"/>
     </flow>
-    <flow name="get:/store/removeItem/collection/{collection}:store-config">
+    <flow name="get:/store/removeCollection:store-config">
         <flow-ref name="delete-mongo-record-flow" doc:name="delete-mongo-record-flow"/>
     </flow>
-    <flow name="get:/store/removeItem/table/{table}:store-config">
+    <flow name="get:/store/removeTable:store-config">
         <flow-ref name="delete-mongo-record-flow" doc:name="delete-mongo-record-flow"/>
     </flow>
-    <flow name="post:/store/createItem/collection:store-config">
+    <flow name="post:/store/createCollection:store-config">
         <flow-ref name="create-mongo-record-flow" doc:name="create-mongo-record-flow"/>
     </flow>
-    <flow name="post:/store/createItem/item:store-config">
+    <flow name="post:/store/createItem:store-config">
         <flow-ref name="create-mongo-record-flow" doc:name="create-mongo-record-flow"/>
     </flow>
-    <flow name="post:/store/createItem/table:store-config">
+    <flow name="post:/store/createTable:store-config">
         <flow-ref name="create-mongo-record-flow" doc:name="create-mongo-record-flow"/>
     </flow>
     <apikit:mapping-exception-strategy name="store-apiKitGlobalExceptionMapping">

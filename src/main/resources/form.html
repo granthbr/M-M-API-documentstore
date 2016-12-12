@@ -67,7 +67,7 @@
 			createForm.submit(function() {
               $.ajax({
                 type: 'POST',							  // Submit an HTTP POST request
-                url: '/api/store/createItem/item',							  // The URL where your endpoint is listening
+                url: '/api/store/createItem',							  // The URL where your endpoint is listening
                 data: createForm.serialize(),			  // Serialized form URL-encoded input
                 success: function(data) {				  // Success function called if request succeeds
                   	
@@ -170,6 +170,7 @@
 					<div class="panel-body">
 						<form id="readForm" class="demo-form" role="form">
 							<label>Query for entries having the following message:</label>
+							<input type="text" id="findObjectId" placeholder="id" required class="form-control"><br>
 							<input type="text" id="message" name="message" required class="form-control"><br>
 							<input class="btn btn-lg btn-primary btn-block" type="submit" value="Read"><br>
 						</form>
@@ -187,7 +188,7 @@
 					<div class="panel-body">
 						<form id="updateForm" class="demo-form" role="form" >
 							<label>Object Id</label>
-							<input type="text" name="updateObjectId" placeholder="Object ID" readonly class="form-control"><br>
+							<input type="text" name="updateObjectId" placeholder="Object ID" required class="form-control"><br>
 							<label>Updated message</label>
 							<input type="text" name="updateValue" placeholder="Update value" required class="form-control"><br>
 							<input class="btn btn-lg btn-primary btn-block" type="submit" value="Update"><br>

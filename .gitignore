@@ -4,3 +4,4 @@
 *.*target/*
 target/*
 src/main/resources/mule.dev.properties
+.settings/*
