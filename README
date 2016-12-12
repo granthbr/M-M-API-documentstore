@@ -1,0 +1,36 @@
+### M-M-API-documentstore 
+document datastore system api 
+
+#### Usage
+each call to the api must meet the requirments below
+---CreateItem
+<cloudhub.ioURL>/api/store/createItem
+1. The create method will insert any JSON formatted document into the db. 
+2. If the document has a value set to '_id' the value will be the document key in the datastore. If no '_id' value is set, an object key  will be generated.
+
+---ReadItem
+<cloudhub.ioURL>/api/store
+1. Retrieving an item from the document store.
+2. The query parameter set to '_id' must match the document key
+3. The results will contain the entire document including the metadata. The metadata will need to be filtered out.
+
+---UpdateItem
+<cloudhub.ioURL>/api/store/updateItem
+1. The document key must be passed in as the query parameter
+2. The body should contain the update to the document. 
+3. If the key values in the update do not match exactly in the document, the updated value will be appended to the document.
+
+---DeleteItem
+<cloudhub.ioURL>/api/store/deleteItem
+1.The document key must be passed in as the query parameter.
+2. The only response once the doc is deleted is an http 201. 
+3. Deleting is instant and permanent. 
+
+####TODO:
+1. Implement methods for creating/updating/removing tables
+2.  Implement methods for creating/removing collections
+3. Insert the database dynamically -- this might not be possible because the table is defined in the global config. 
+ 
+-- the existing methods do not work for the tables/collections
+
+

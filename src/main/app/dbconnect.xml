@@ -32,7 +32,7 @@ http://www.mulesoft.org/schema/mule/json http://www.mulesoft.org/schema/mule/jso
 		</dw:transform-message>
 		<mongo:remove-documents config-ref="Mongo_DB__Configuration"
 			collection="${mongo.collection}" doc:name="Delete record" />
-		<set-payload value="#[payload]"
+		<set-payload value="delete repsonse #[payload.toString()]"
 			doc:name="Set Payload" />
 	</flow>
     <flow name="update-mongo-record-flow">
